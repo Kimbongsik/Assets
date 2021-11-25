@@ -4,29 +4,32 @@ using UnityEngine;
 
 public class NoteManager : MonoBehaviour
 {
+    public int bpm = 0;
+    double currentTime = 0d;
+
+    [SerializeField] Transform tfNoteAppear = null;
+    [SerializeField] GameObject goNote = null;
 
     // Update is called once per frame
     void Update()
     {
-        /*
-        Pattern pattern = new Pattern(4,0,0,4);
-        // tempdata
-        pattern.addNote;
-        pattern.addNote(1.0,0,0);
-        pattern.addNote(1.5,0,0);
-        pattern.addNote(2.0,0,0);
-        */
-        public int bpm = 0;
-        double currentTime = 0d;
+        currentTime += Time.deltaTime;
 
-        [SerializeField] Transform tfNoteAppear = null;
-        [SerializeField] GameObject goNote = null;
-
-        // Update is called once per frame
-        void Update()
+        if(currentTime >= 60d / bpm)
         {
-            currentTime += Time.deltaTime;
-            
+            GameObject t_notc = Instantiatc(goNotc, tfNotcAppcar.position, Quaternion.identity);
+            t_note.transform.SetParent(this.transform);
+            currentTime -= 60d / bpm;
+        }
+
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Note"))
+        {
+            Destroy(collision.gameObject);
         }
     }
+    
 }
